@@ -19,10 +19,12 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   plugins: [
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: 'index.html',
+    }),
     extractScss
   ],
   module: {
@@ -40,6 +42,14 @@ module.exports = {
         ],
         fallback: 'style-loader'
       })
+    }, {
+      test: /\.(png|jpg)$/,
+      use: [
+        {
+          loader: 'file-loader',
+          options: {},
+        },
+      ],
     }]
   }
 };
