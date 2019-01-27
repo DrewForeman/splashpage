@@ -1,0 +1,333 @@
+$color-background: #A3D2D5;
+
+$color-hair-base: #b26014;
+$color-hair-top: #df7919;
+$color-skin: #fbf1e8;
+$color-skin-shadow: #e1d8d0;
+$color-shirt: #64605c;
+$color-shirt-darker: #32302e;
+$color-secondary: #c1bfbd;
+
+$container-width: 310px;
+
+$face-height: 160px;
+$face-width: 126px;
+$face-offset: 30px;
+
+$hair-height: 200px;
+$hair-width: 180px;
+
+$neck-height: 50px;
+$neck-width: 35px;
+$neck-offset: 30px;
+
+$turtleneck-width: 50px;
+$turtleneck-height: 25px;
+$shirt-height: 80px;
+
+$rotation: 14;
+
+html,
+body {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	padding: 0;
+	margin: 0;
+  font-family: Sans-Serif;
+  text-transform: uppercase;
+}
+
+.container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+	margin: auto;
+  text-align: center;
+	width: $container-width;
+	height: 280px;
+  background-color: #A3D2D5;
+  border-radius: 1100px 90px 200px 90px;
+  animation: glow ease-in-out 4s infinite;
+}
+
+#avatar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: $hair-width;
+  height: $hair-height;
+
+  * {
+    transition : all .5s;
+  }
+
+  div {
+    position: absolute;
+  }
+
+  .hair-base {
+    background-color: $color-hair-base;
+    width: $hair-width;
+    height: $hair-height;
+    border-radius: 70px 70px 20px 20px;
+  }
+
+  .hair-top {
+    background-color: $color-hair-top;
+    $rotation-offset: ($rotation / 5) + 2;
+    height: $hair-height + ($rotation + $rotation-offset);
+    width: $hair-width / 2 - 10px;
+    top: -($rotation) + px;
+
+    &--left {
+      transform: rotate($rotation + deg);
+      border-radius: 70px 0 0 20px;
+      left: -($rotation + $rotation-offset) + px;
+      z-index: 3;
+      // animation: hair-flutter 10s infinite;
+    }
+
+    &--right {
+      transform: rotate(-($rotation) + deg);
+      border-radius: 0 70px 20px 0;
+      left: $hair-width / 2 + (($rotation + $rotation-offset));
+      z-index: 1;
+    }
+  }
+
+  .face {
+    position: absolute;
+    left: ($hair-width - $face-width) / 2;
+    top: $face-offset;
+    background-color: $color-skin;
+    width: $face-width;
+    height: $face-height;
+    border-radius: 50% 50% 75% 75%;
+    z-index: 2;
+    // &.show-animation {
+    //   animation: tilt 10s infinite;
+    // }
+  }
+
+  .glasses {
+    position: relative;
+    height: 40px;
+    width: $face-width;
+    top: 50px;
+    z-index: 2;
+    &:before,
+    &:after {
+      position: absolute;
+      content: "";
+      background-color: $color-secondary;
+      width: 40px;
+      height: 100%;
+      border-radius: 20px 20px 30px 30px;
+      border: 3px solid #ffffff;
+      z-index: 4;
+    }
+
+    &:before {
+      left: 12px;
+    }
+    &:after {
+      right: 12px;
+    }
+
+    .bar {
+      height: 8px;
+      width: 15px;
+      background-color: $color-shirt-darker;
+      position: absolute;
+      right: -3px;
+      top: 5px;
+      transform: rotate(-15deg)
+    }
+  }
+
+  .neck {
+    background-color: $color-skin;
+    height: $neck-height;
+    width: $neck-width;
+    top: $face-height + $face-offset - $neck-offset;
+    left: ($hair-width - $neck-width) / 2;
+    &__shadow {
+      height: $neck-width / 2;
+      width: $neck-width;
+      top: 23px;
+      background-color: $color-skin-shadow;
+      border-radius: 0 0 40% 40%;
+    }
+  }
+
+  .turtleneck {
+    background-color: $color-shirt;
+    height: $turtleneck-height;
+    width: $turtleneck-width;
+    top: $face-height + $face-offset + $neck-height - $neck-offset;
+    left: ($hair-width - $turtleneck-width) / 2;
+    border-radius: 5px;
+    z-index: 1;
+    animation: rise 6s infinite;
+  }
+
+  .shirt {
+    $shirt-extend: 50px;
+    background-color: $color-shirt-darker;
+    height: $shirt-height;
+    width: $hair-width + $shirt-extend;
+    left: -($shirt-extend /2);
+    top: $face-height + $face-offset + ($neck-height - $neck-offset) + $turtleneck-height - 8px;
+    border-radius: 55px 55px 5px 5px;
+    animation: breathe 6s infinite;
+  }
+}
+
+.look-down#avatar {
+  &:not(.looked-down) {
+    // perspective: 200px;
+    * {
+      transition : all .5s;
+    }
+    .face {
+      // transform: rotateX(-15deg) translateY(24px);
+      transform: translateY(15px) scaleY(0.95) scaleX(1.01);
+      border-radius: 60% 60% 100% 100%;
+      perspective: 300px;
+      .glasses {
+        transform: rotateX(-15deg);
+      }
+    }
+    .hair-base {
+      transform: scaleY(0.9);
+    }
+    .hair-top--left {
+      transform: rotate(15deg) scaleY(1.08) translateY(18px);
+    }
+    .hair-top--right {
+      transform: rotate(-15deg) scaleY(1.08) translateY(18px);
+    }
+    .neck__shadow {
+      top: 35px;
+      transform: scaleY(1.3);
+      background-color: darken($color-skin-shadow, 5%);
+    }
+  }
+}
+
+#talkbubble {
+  visibility: hidden;
+  $talkbubble-width: 100px;
+  $talkbubble-height: 80px;
+
+  width: $talkbubble-width;
+  height: $talkbubble-height;
+  background: red;
+  position: absolute;
+  left: -$talkbubble-width;
+  top: 44px;
+  border-radius: 10px;
+  background-color: $color-secondary;
+  &:after {
+    content: "";
+    position: absolute;
+    left: 100%;
+    top: 26px;
+    border-top: 15px solid transparent;
+    border-left: 25px solid $color-secondary;
+    border-bottom: 15px solid transparent;
+  }
+
+  .talkbubble__text {
+    font-weight: 600;
+    font-size: 18px;
+    color: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+  }
+  &.visible {
+    visibility: visible;
+  }
+}
+
+#action-button-box {
+  $action-box-height: 500px;
+  $action-box-width: 400px;
+  position: relative;
+  height: $action-box-height;
+  width: $action-box-width;
+  top: $face-height + $face-offset + ($neck-height - $neck-offset)
+    + $turtleneck-height + $shirt-height;
+  left: -($action-box-width - $container-width) / 2;
+  margin-top: -60px;
+  text-align: center;
+  padding-top: 70px;
+  a {
+    text-decoration: none;
+  }
+  .action-button {
+    height: 50px;
+    width: 50px;
+    background-color: $color-secondary;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 10px;
+    text-align: center;
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: inset 0px 0px 0px 3px $color-shirt;
+      .action-button__text {
+        visibility: visible;
+      }
+    }
+    &:active {
+      transform: translateY(1px);
+      box-shadow: inset 0px 0px 0px 3px $color-shirt;
+    }
+    .logo {
+      height: 28px;
+      width: 28px;
+      margin-top: 8px;
+    }
+  }
+}
+
+
+@keyframes glow {
+  50% {box-shadow: 0 0 0 20px rgba($color-background, 0.3);}
+}
+
+@keyframes tilt {
+  2% {transform: rotate(-3deg);}
+  4% {transform: rotate(2deg);}
+  5% {transform: rotate(0);}
+}
+
+@keyframes breathe {
+  50% {
+    transform: scaleY(1.05);
+    transform-origin: bottom;
+  }
+}
+@keyframes rise {
+  50% {transform: translateY(-3px);}
+}
+
+// @keyframes hair-flutter {
+//   0% {
+//     transform: rotate($rotation + deg);
+//   }
+//   20% {
+//     transform: rotate(($rotation + 2) + deg);
+//   }
+
+//   30% {
+//     transform: rotate($rotation + deg);
+//   }
+// }
