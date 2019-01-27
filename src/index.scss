@@ -61,7 +61,7 @@ body {
   width: $hair-width;
   height: $hair-height;
 
-  * {
+  &.looked-down * {
     transition : all .5s;
   }
 
@@ -108,9 +108,7 @@ body {
     height: $face-height;
     border-radius: 50% 50% 75% 75%;
     z-index: 2;
-    // &.show-animation {
-    //   animation: tilt 10s infinite;
-    // }
+		// animation: tilt 10s infinite;
   }
 
   .glasses {
@@ -189,12 +187,10 @@ body {
 
 .look-down#avatar {
   &:not(.looked-down) {
-    // perspective: 200px;
     * {
       transition : all .5s;
     }
     .face {
-      // transform: rotateX(-15deg) translateY(24px);
       transform: translateY(15px) scaleY(0.95) scaleX(1.01);
       border-radius: 60% 60% 100% 100%;
       perspective: 300px;
@@ -220,7 +216,9 @@ body {
 }
 
 #talkbubble {
-  visibility: hidden;
+	opacity: 0;
+	transition : all .5s;
+
   $talkbubble-width: 100px;
   $talkbubble-height: 80px;
 
@@ -252,7 +250,8 @@ body {
     transform: translate(-50%, -50%)
   }
   &.visible {
-    visibility: visible;
+		transition : all .5s;
+    opacity: 1;
   }
 }
 
@@ -282,9 +281,6 @@ body {
     &:hover {
       transform: translateY(-1px);
       box-shadow: inset 0px 0px 0px 3px $color-shirt;
-      .action-button__text {
-        visibility: visible;
-      }
     }
     &:active {
       transform: translateY(1px);
@@ -293,7 +289,7 @@ body {
     .logo {
       height: 28px;
       width: 28px;
-      margin-top: 8px;
+      margin-top: 11px;
     }
   }
 }
